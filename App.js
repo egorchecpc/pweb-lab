@@ -7,8 +7,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import CardScreen from './modules/CardScreen/CardScreen';
 
+
 const Stack = createStackNavigator();
+
+
 export default function App() {
+
   return (
     <Provider store={store}>
       <NavigationContainer >

@@ -1,13 +1,16 @@
+
 const SET_CHARACTERS = 'SET-CHARACTERS';
 const ADD_CHARACTERS = 'ADD-CHARACTERS';
-const ADD_TO_FAV ='ADD-TO-FAV';
-const CHANGE_FETCHING = 'CHANGE_FETCHING'
+const CHANGE_FETCHING = 'CHANGE_FETCHING';
+const SET_FAVORITE_CHARACTERS = 'SET_FAVORITE_CHARACTERS';
+const ADD_FAVORITE_CHARACTER = 'ADD_FAVORITE_CHARACTER';
+const REMOVE_FAVORITE_CHARACTER = 'REMOVE_FAVORITE_CHARACTER';
 
 const initialState = {
     characters: [],
     pageNum:1,
     isFetching: false,
-    fav_char: [],
+    favoriteCharacters: [],
 }
 
 const homeReducer = (state = initialState, action) => {
@@ -20,15 +23,25 @@ const homeReducer = (state = initialState, action) => {
                 ...state,
                 pageNum: ++state.pageNum
             }
-        case ADD_TO_FAV:
-            return{
-                ...state,
-                fav_char:[...state.fav_char, action.character]
-            }
         case CHANGE_FETCHING:
             return{
                 ...state,
                 isFetching:!state.isFetching
+            }
+        case SET_FAVORITE_CHARACTERS:
+            return {
+                ...state,
+                favoriteCharacters: action.characters
+            }
+        case ADD_FAVORITE_CHARACTER:
+            return {
+                ...state,
+                favoriteCharacters: [...state.favoriteCharacters,action.character],
+            }
+        case REMOVE_FAVORITE_CHARACTER:
+            return {
+                ...state,
+                favoriteCharacters: state.favoriteCharacters.filter((item)=>item.id!==action.id)
             }
         default:
             return state;
@@ -39,7 +52,9 @@ const homeReducer = (state = initialState, action) => {
 
 export const setCharacters = (characters) => ({type: SET_CHARACTERS, characters});
 export const addCharacters = () => ({type: ADD_CHARACTERS});
-export const addFavChar = (character) => ({type: ADD_TO_FAV, character});
-export const changeFetching = () => ({type: CHANGE_FETCHING})
+export const changeFetching = () => ({type: CHANGE_FETCHING});
+export const setFavoriteCharacters = (characters) => ({ type: SET_FAVORITE_CHARACTERS, characters });
+export const addFavChar = (character) => ({type:ADD_FAVORITE_CHARACTER,character });
+export const removeFavChar = (id) => ({type: REMOVE_FAVORITE_CHARACTER, id})
 
 export default homeReducer;
