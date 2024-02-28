@@ -3,15 +3,35 @@ import { addCharacters, setCharacters, changeFetching, setFavoriteCharacters, ad
 import HomeScreen from "./HomeScreen";
 import charactersAPI from "../../api/api";
 import { useEffect } from "react";
-
+import { getFavChars, setFavChars } from "../../storage";
 
 
 const HomeScreenContainer = (props) => {
-
     useEffect(()=>{
         props.changeFetching()
         charactersAPI.getCharacters(props.pageNum.toString()).then(data=> {props.setCharacters(data.results);props.changeFetching()})
     },[props.pageNum])
+    useEffect(() => {
+        const fetchData = async () => {
+            const storedFavChars = await getFavChars();
+            console.log('Async-data:', storedFavChars);
+            if (storedFavChars) {
+                props.setFavoriteCharacters(storedFavChars);
+            } else {
+                console.log('Async Storage пуст');
+            }
+        };
+        fetchData();
+    }, []);
+    // useEffect(()=>{
+    //     const storedFavChars = getFavChars();
+    //     console.log('Async-data:',storedFavChars)
+    //     if (storedFavChars) {
+    //     props.setFavoriteCharacters(storedFavChars);
+    //     } else {
+    //         console.log('Async Storage пуст');
+    //     }
+    // }, [])
     return (<HomeScreen navigation={props.navigation}
                         addCharacters={props.addCharacters}
                         characters={props.characters}
@@ -20,6 +40,7 @@ const HomeScreenContainer = (props) => {
                         favoriteCharacters={props.favoriteCharacters}
                         addFavChar={props.addFavChar}
                         removeFavChar={props.removeFavChar}
+                        setFavChars={setFavChars}
                         />)
 }
 

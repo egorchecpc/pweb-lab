@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 
 
 export default function App() {
-
+  
   return (
     <Provider store={store}>
       <NavigationContainer >
@@ -24,6 +24,8 @@ export default function App() {
     </Provider>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

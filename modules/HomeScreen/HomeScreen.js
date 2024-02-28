@@ -8,6 +8,17 @@ const HomeScreen = (props) => {
         setCharacters(props.characters)
     },[props.characters])
     
+    const addFavoriteCharacter = async (character) => {
+      props.addFavChar(character);
+      const updatedFavChars = [...props.favoriteCharacters, character]; 
+      props.setFavChars(updatedFavChars);
+    };
+
+    const removeFavoriteCharacter = async (characterId) => {
+      props.removeFavChar(characterId);
+      const updatedFavChars = props.favoriteCharacters.filter(char => char.id !== characterId);
+      props.setFavChars(updatedFavChars);
+    };
 
     const renderItem = ({ item }) => {
       const isFavorite = props.favoriteCharacters.some(char => char.id === item.id);
@@ -28,11 +39,9 @@ const HomeScreen = (props) => {
           <Button
             title={isFavorite ? "Remove from favorite" : "Add to favorite"}
             onPress={() => {
-            if (isFavorite) {
-              props.removeFavChar(item.id);
-            } else {
-              props.addFavChar(item);
-           }
+            isFavorite
+              ?removeFavoriteCharacter(item.id)
+              :addFavoriteCharacter(item)
         }}
       />
         </View>
@@ -98,18 +107,18 @@ const styles = StyleSheet.create({
   },
   favBtn: {
     margin: 5,
-    marginTop: 25, // уменьшаем отступ, чтобы кнопка не занимала слишком много места
-    backgroundColor: '#ADD8E6', // жёлтый цвет для выделения
-    borderRadius: 5, // закругляем углы кнопки
-    paddingVertical: 10, // добавляем вертикальный отступ внутри кнопки
-    paddingHorizontal: 20, // добавляем горизонтальный отступ внутри кнопки
-    alignSelf: 'center', // центрируем кнопку по горизонтали
+    marginTop: 25, 
+    backgroundColor: '#ADD8E6', 
+    borderRadius: 5, 
+    paddingVertical: 10, 
+    paddingHorizontal: 20, 
+    alignSelf: 'center', 
   },
   favBtnText: {
     color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
-    textAlign: 'center', // добавляем выравнивание текста по центру
+    textAlign: 'center',
   },
 });
 

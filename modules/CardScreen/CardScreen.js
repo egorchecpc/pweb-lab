@@ -2,20 +2,21 @@ import { ScrollView, Text, StyleSheet,Image, View, TouchableOpacity } from 'reac
 
 const CardScreen = (props) => {
     const { character } = props.route.params;
+    const {image, name, status, species, type, gender, origin, location} = character
     return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => props.navigation.goBack()} style={styles.backButton}>
         <Text style={styles.backText}>{'< Back'}</Text>
       </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        <Image style={styles.image} source={{ uri: character.image }} />
-        <Text style={styles.text}>Name: {character.name}</Text>
-        <Text style={styles.text}>Status: {character.status}</Text>
-        <Text style={styles.text}>Species: {character.species}</Text>
-        <Text style={styles.text}>Type: {character.type}</Text>
-        <Text style={styles.text}>Gender: {character.gender}</Text>
-        <Text style={styles.text}>Origin: {character.origin.name}</Text>
-        <Text style={styles.text}>Location: {character.location.name}</Text>
+        <Image style={styles.image} source={{ uri: image }} />
+        <Text style={styles.text}>Name: {name}</Text>
+        <Text style={styles.text}>Status: {status}</Text>
+        <Text style={styles.text}>Species: {species}</Text>
+        <Text style={styles.text}>Type: {type}</Text>
+        <Text style={styles.text}>Gender: {gender}</Text>
+        <Text style={styles.text}>Origin: {origin.name}</Text>
+        <Text style={styles.text}>Location: {location.name}</Text>
       </ScrollView>
     </View>
     )

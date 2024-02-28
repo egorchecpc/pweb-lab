@@ -1,4 +1,3 @@
-
 const SET_CHARACTERS = 'SET-CHARACTERS';
 const ADD_CHARACTERS = 'ADD-CHARACTERS';
 const CHANGE_FETCHING = 'CHANGE_FETCHING';
@@ -56,5 +55,7 @@ export const changeFetching = () => ({type: CHANGE_FETCHING});
 export const setFavoriteCharacters = (characters) => ({ type: SET_FAVORITE_CHARACTERS, characters });
 export const addFavChar = (character) => ({type:ADD_FAVORITE_CHARACTER,character });
 export const removeFavChar = (id) => ({type: REMOVE_FAVORITE_CHARACTER, id})
+
+
 
 export default homeReducer;
